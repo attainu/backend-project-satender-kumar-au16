@@ -4,15 +4,8 @@ const methodOverride = require('method-override');
 const blogRouter = require('./routes/blogs');
 const Blog = require('./models/Blog');
 const app = express();
-require('dotenv').config();
-
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,});
-const db = mongoose.connection;
-db.on("error", (error) => console.log(error));
-db.once("open", () => console.log("connected"));
-
+require("./db/conn");
+const port = process.env.PORT || 3000
 //set template engine
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
@@ -28,4 +21,4 @@ app.use(express.static('public'));
 app.use('/blogs', blogRouter);
 
 //listen port
-app.listen(5000);
+app.listen(port);
