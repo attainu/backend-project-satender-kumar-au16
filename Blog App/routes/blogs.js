@@ -27,6 +27,7 @@ const upload = multer({
   },
 });
 
+
 router.get('/new', (request, response) => {
   response.render('new');
 });
@@ -81,14 +82,14 @@ router.put('/:id', async (request, response) => {
     response.redirect(`/blogs/${blog.slug}`);
   } catch (error) {
     console.log(error);
-    response.redirect(`/seblogs/edit/${blog.id}`, { blog: blog });
+    response.redirect(`/blogs/edit/${blog.id}`, { blog: blog });
   }
 });
 
 ///route to handle delete
 router.delete('/:id', async (request, response) => {
   await Blog.findByIdAndDelete(request.params.id);
-  response.redirect('/');
+  response.redirect('/index');
 });
 
 module.exports = router;
